@@ -28,3 +28,24 @@ Feature: FlujoWEB_DELIVERY
       | caso_prueba |
       |           1 |
 
+  @CARGA_MATERIALES
+  Scenario Outline: Carga de Materiales
+
+    Given INGRESAMOS A LA URL DE WEB DELIVERY "<caso_prueba>"
+    When INGRESAMOS USUARIO A WEB DELIVERY"<caso_prueba>"
+    And INGRESAMOS CONTRASEÑA A WEB DELIVER"<caso_prueba>"
+    Then CLICK BOTON LOGIN INGRESANDO CORRECTAMENTE A LA PAGINA
+    Given Se da click en el boton IR A en WEB DELIVERY "<caso_prueba>"
+    When seleccionar ajuste de inventario
+    And click en el boton nuevo registro
+    And seleccionamos el tipo ABASTECIMIENTO "<caso_prueba>"
+    And ingresamos un comentario "<caso_prueba>"
+    And ingresamos guia de remision "<caso_prueba>"
+    And ingresamos el archivo "<caso_prueba>"
+    And click en ejecutar ajuste y aceptar mensaje
+    And validar que los archivos hayan cargado
+
+
+    Examples:
+      | caso_prueba |
+      |           1 |

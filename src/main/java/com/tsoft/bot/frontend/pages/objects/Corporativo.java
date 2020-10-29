@@ -3,6 +3,10 @@ package com.tsoft.bot.frontend.pages.objects;
 import org.openqa.selenium.By;
 
 public class Corporativo {
+    public static By TXT_USER = By.id("username");
+    public static By TXT_PASSWORD = By.id("password");
+    public static By BTN_LOGIN = By.id("loginbutton");
+    public static By prueba = By.id("mb_msg");
     public static By LNK_CREAR_PEDIDO = By.id("FavoriteApp_WD_PED_CR");
     public static By LNK_GEST_PED_CORP = By.id("menu0_GPC_MODULE_a_tnode");
     public static By LNK_PREP_PEDIDO = By.id("menu0_GPC_MODULE_sub_CUST1002_HEADER_a_tnode");
@@ -167,10 +171,6 @@ public class Corporativo {
     public static By TABLE = By.id("m187f4d3c_tbod-tbd");
     public static By TABLE2 = By.id("md6723283_tbod-tbd");
 
-    public static By TXT_USER = By.id("username");
-    public static By TXT_PASSWORD = By.id("password");
-    public static By BTN_LOGIN = By.id("loginbutton");
-    public static By prueba = By.id("mb_msg");
 
 
 

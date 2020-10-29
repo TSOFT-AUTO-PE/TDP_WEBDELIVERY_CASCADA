@@ -1,6 +1,6 @@
 package com.tsoft.bot.frontend.pages.objects;
 
-public class ExcelCreacionPedido {
+public class ExcelWebDelivery {
 
     public static final String EXCEL_WEB = "excel/CREACION_PEDIDO.xlsx";
     public static final String ORDEN = "Corporativo";

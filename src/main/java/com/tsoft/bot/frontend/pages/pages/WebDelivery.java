@@ -2,7 +2,7 @@ package com.tsoft.bot.frontend.pages.pages;
 
 import com.tsoft.bot.frontend.helpers.Hook;
 import com.tsoft.bot.frontend.pages.objects.Corporativo;
-import com.tsoft.bot.frontend.pages.objects.ExcelCreacionPedido;
+import com.tsoft.bot.frontend.pages.objects.ExcelWebDelivery;
 import com.tsoft.bot.frontend.utility.ExcelReader;
 import com.tsoft.bot.frontend.utility.ExtentReportUtil;
 import com.tsoft.bot.frontend.utility.GenerateWord;
@@ -10,12 +10,14 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.sikuli.script.ImagePath;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class CorporativoCrearPedido {
-    ExcelCreacionPedido exCreatePed = new ExcelCreacionPedido();
+public class WebDelivery {
+    ExcelWebDelivery exCreatePed = new ExcelWebDelivery();
+
     public WebDriver driver;
     String step = "";
     static GenerateWord generateWord = new GenerateWord();
@@ -24,11 +26,93 @@ public class CorporativoCrearPedido {
         return ExcelReader.data(exCreatePed.EXCEL_WEB, exCreatePed.ORDEN);
     }
 
-    public CorporativoCrearPedido() {
+    public WebDelivery() {
         this.driver = Hook.getDriver();
     }
     String PEDIDO;
+    public void ingresoALaUrlDeWEBDELIVERY(String casoDePrueba) throws Throwable {
+        try {
 
+            int LoginWD = Integer.parseInt(casoDePrueba) - 1;
+            String url = getData().get(LoginWD).get(exCreatePed.COLUMNA_URL);
+            driver.get(url);
+
+            ExtentReportUtil.INSTANCE.stepPass(driver, "Se cargó correctamente la página");
+            generateWord.sendText("Carga correcta de la página");
+            generateWord.addImageToWord(driver);
+            generateWord.sendBreak();
+            System.out.println(ImagePath.getBundlePath());
+
+
+        }catch (Exception e){
+            ExcelReader.writeCellValue(exCreatePed.EXCEL_WEB, exCreatePed.ORDEN, 1, 19, "FAIL");
+            ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
+            generateWord.sendText("Tiempo de espera ha excedido");
+            generateWord.addImageToWord(driver);
+        }
+    }
+
+    public void ingresoElUsuarioDeWEBDELIVERY(String casoDePrueba) throws Throwable {
+
+        try {
+            int user = Integer.parseInt(casoDePrueba) - 1;
+            String usuario = getData().get(user).get(exCreatePed.COLUMNA_USUARIO);
+            WebDriverWait wait = new WebDriverWait(driver, 60);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_USER));
+            if (driver.findElement(Corporativo.TXT_USER).isDisplayed()){
+                driver.findElement(Corporativo.TXT_USER).clear();
+                driver.findElement(Corporativo.TXT_USER).sendKeys(usuario);
+            }
+            ExtentReportUtil.INSTANCE.stepPass(driver, "Ingresamos el usuario");
+            generateWord.sendText("Ingresamos el usuario");
+            generateWord.addImageToWord(driver);
+
+        }catch (Exception e){
+            ExcelReader.writeCellValue(exCreatePed.EXCEL_WEB, exCreatePed.ORDEN, 1, 19, "FAIL");
+            ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
+            generateWord.sendText("Tiempo de espera ha excedido");
+            generateWord.addImageToWord(driver);
+
+        }
+    }
+
+
+    public void laContraseñaDeWEBDELIVERY(String casoDePrueba) throws Throwable {
+
+        try {
+            int PASS = Integer.parseInt(casoDePrueba) - 1;
+            WebDriverWait wait = new WebDriverWait(driver, 60);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_PASSWORD));
+            driver.findElement(Corporativo.TXT_PASSWORD).clear();
+            String contra = getData().get(PASS).get(exCreatePed.COLUMNA_CONTRASENIA);
+            driver.findElement(Corporativo.TXT_PASSWORD).sendKeys(contra);
+            ExtentReportUtil.INSTANCE.stepPass(driver, "Ingresamos la contraseña");
+            generateWord.sendText("Ingresamos la contraseña");
+            generateWord.addImageToWord(driver);
+
+        }catch (Exception e){
+            ExcelReader.writeCellValue(exCreatePed.EXCEL_WEB, exCreatePed.ORDEN, 1, 19, "FAIL");
+            ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
+            generateWord.sendText("Tiempo de espera ha excedido");
+            generateWord.addImageToWord(driver);
+        }
+    }
+
+
+    public void seDaClicEnElBotonLoginDeWEBDELIVERYIngresandoCorrectamente() throws Throwable {
+        try {
+            driver.findElement(Corporativo.BTN_LOGIN).click();
+            Thread.sleep(2000);
+            ExtentReportUtil.INSTANCE.stepPass(driver, "Se ingresa correctamente");
+            generateWord.sendText("Se ingresa correctamente");
+            generateWord.addImageToWord(driver);
+        }catch (Exception e){
+            ExcelReader.writeCellValue(exCreatePed.EXCEL_WEB, exCreatePed.ORDEN, 1, 19, "FAIL");
+            ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
+            generateWord.sendText("Tiempo de espera ha excedido");
+            generateWord.addImageToWord(driver);
+        }
+    }
     public void clickEnCrearPedido() throws Exception {
         try {
             driver.findElement(Corporativo.LNK_CREAR_PEDIDO).click();
