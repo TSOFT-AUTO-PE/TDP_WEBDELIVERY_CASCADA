@@ -27,4 +27,4 @@ Feature: FlujoWEB_DELIVERY
     Examples:
       | caso_prueba |
       |           1 |
-      |           2 |
+
