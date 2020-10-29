@@ -1,15 +1,15 @@
 Feature: FlujoWEB_DELIVERY
 
 
-  @CREAR_PEDIDO
+  @CREAR_PEDIDO @FlujoCompleto
   Scenario Outline: Crear Pedido_ALTA_MASIVA_CAEQ_MASIVO
     Given INGRESAMOS A LA URL DE WEB DELIVERY "<caso_prueba>"
     When INGRESAMOS USUARIO A WEB DELIVERY"<caso_prueba>"
-    And INGRESAMOS CONTRASEÑA A WEB DELIVER"<caso_prueba>"
+    And INGRESAMOS PASSWORD WEB DELIVER"<caso_prueba>"
     Then CLICK BOTON LOGIN INGRESANDO CORRECTAMENTE A LA PAGINA
     Given click en crear pedido
-    When Ingresar y buscar el número de RUC "<caso_prueba>"
-    And Ingresar el tipo de pedido y almacén "<caso_prueba>"
+    When Ingresar y buscar el numero de RUC "<caso_prueba>"
+    And Ingresar el tipo de pedido y almacen "<caso_prueba>"
     And Infromación del solicitante"<caso_prueba>"
     And Dirección de entrega
     And Información del receptor "<caso_prueba>"
@@ -28,12 +28,12 @@ Feature: FlujoWEB_DELIVERY
       | caso_prueba |
       |           1 |
 
-  @CARGA_MATERIALES
+  @CARGA_MATERIALES @FlujoCompleto
   Scenario Outline: Carga de Materiales
 
     Given INGRESAMOS A LA URL DE WEB DELIVERY "<caso_prueba>"
     When INGRESAMOS USUARIO A WEB DELIVERY"<caso_prueba>"
-    And INGRESAMOS CONTRASEÑA A WEB DELIVER"<caso_prueba>"
+    And INGRESAMOS PASSWORD WEB DELIVER"<caso_prueba>"
     Then CLICK BOTON LOGIN INGRESANDO CORRECTAMENTE A LA PAGINA
     Given Se da click en el boton IR A en WEB DELIVERY "<caso_prueba>"
     When seleccionar ajuste de inventario
@@ -41,7 +41,7 @@ Feature: FlujoWEB_DELIVERY
     And seleccionamos el tipo ABASTECIMIENTO "<caso_prueba>"
     And ingresamos un comentario "<caso_prueba>"
     And ingresamos guia de remision "<caso_prueba>"
-    And ingresamos el archivo "<caso_prueba>"
+    And ingresamos el archivo
     And click en ejecutar ajuste y aceptar mensaje
     And validar que los archivos hayan cargado
 

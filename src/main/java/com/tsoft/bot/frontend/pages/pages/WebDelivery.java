@@ -1,19 +1,30 @@
 package com.tsoft.bot.frontend.pages.pages;
 
 import com.tsoft.bot.frontend.helpers.Hook;
+import com.tsoft.bot.frontend.pages.objects.CargaMateriales;
 import com.tsoft.bot.frontend.pages.objects.Corporativo;
 import com.tsoft.bot.frontend.pages.objects.ExcelWebDelivery;
 import com.tsoft.bot.frontend.utility.ExcelReader;
 import com.tsoft.bot.frontend.utility.ExtentReportUtil;
 import com.tsoft.bot.frontend.utility.GenerateWord;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.sikuli.script.ImagePath;
+import org.sikuli.script.Region;
+import org.sikuli.script.Screen;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
+import java.io.CharArrayReader;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class WebDelivery {
     ExcelWebDelivery exCreatePed = new ExcelWebDelivery();
@@ -97,8 +108,6 @@ public class WebDelivery {
             generateWord.addImageToWord(driver);
         }
     }
-
-
     public void seDaClicEnElBotonLoginDeWEBDELIVERYIngresandoCorrectamente() throws Throwable {
         try {
             driver.findElement(Corporativo.BTN_LOGIN).click();
@@ -126,7 +135,6 @@ public class WebDelivery {
             generateWord.addImageToWord(driver);
         }
     }
-
     public void ingresarYBuscarElNúmeroDeRUC(String casoDePrueba) throws Throwable {
 
         try {
@@ -275,8 +283,6 @@ public class WebDelivery {
 
         }
     }
-
-
     public void direcciónDeEntrega() throws Exception {
         try {
             Thread.sleep(2000);
@@ -330,7 +336,6 @@ public class WebDelivery {
 
         }
     }
-
     public void clickEnBotónContinuar() throws Exception {
 
         try {
@@ -587,8 +592,6 @@ public class WebDelivery {
 
 
     }
-
-
     public void guardarElCódigoDePedido(String casoDePrueba) throws Throwable {
 
         try {
@@ -619,6 +622,212 @@ public class WebDelivery {
             generateWord.sendText("Tiempo de espera ha excedido");
             generateWord.addImageToWord(driver);
 
+        }
+    }
+    public void seDaClickEnElBotonIRAEnWEBDELIVERY(String arg0) throws Throwable {
+
+        try {
+            driver.findElement(CargaMateriales.LST_IR_A).click();
+            ExtentReportUtil.INSTANCE.stepPass(driver, "IR A lista de pedidos");
+        }catch (Exception e){
+            ExcelReader.writeCellValue(exCreatePed.EXCEL_WEB, exCreatePed.ORDEN, 1, 19, "FAIL");
+            ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
+            generateWord.sendText("Tiempo de espera ha excedido");
+            generateWord.addImageToWord(driver);
+        }
+    }
+    public void seleccionarAjusteDeInventario() throws Exception {
+        try {
+            Actions act = new Actions(driver);
+            act.moveToElement(driver.findElement(CargaMateriales.LNK_GESTION_PEDIDOS)).build().perform();
+            Actions act2 = new Actions(driver);
+            act2.moveToElement(driver.findElement(CargaMateriales.LNK_GESTION_INVENTARIOS)).build().perform();
+            driver.findElement(CargaMateriales.LNK_AJUSTE_INVENTARIO).click();
+            Thread.sleep(2000);
+            ExtentReportUtil.INSTANCE.stepPass(driver, "Ajuste de inventarios");
+            generateWord.sendText("Ajuste de inventarios");
+            generateWord.addImageToWord(driver);
+        }catch (Exception e){
+            ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
+            generateWord.sendText("Tiempo de espera ha excedido");
+            generateWord.addImageToWord(driver);
+        }
+    }
+    public void clickEnElBotonNuevoRegistro() throws Exception {
+        try {
+            driver.findElement(CargaMateriales.BTN_NUEVO_REGISTRO).click();
+            Thread.sleep(2000);
+            ExtentReportUtil.INSTANCE.stepPass(driver, "Nuevo registro");
+            generateWord.sendText("Nuevo registro");
+            generateWord.addImageToWord(driver);
+
+        }catch (Exception e){
+            ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
+            generateWord.sendText("Tiempo de espera ha excedido");
+            generateWord.addImageToWord(driver);
+        }
+    }
+    public void seleccionamosElTipoABASTECIMIENTO(String arg0) throws Throwable {
+
+        try {
+            driver.findElement(CargaMateriales.BTN_TIPO).click();
+            Thread.sleep(1000);
+            generateWord.sendText("Click ABASTECIMIENTO");
+            generateWord.addImageToWord(driver);
+            driver.findElement(CargaMateriales.LNK_ABASTECIMIENTO).click();
+            Thread.sleep(2000);
+            String estado = driver.findElement(CargaMateriales.TXT_TIPO).getAttribute("value");
+            if (estado.equals("ABASTECIMIENTO")){
+                ExtentReportUtil.INSTANCE.stepPass(driver, "Tipo: ABASTECIMIENTO");
+                generateWord.sendText("Tipo: ABASTECIMIENTO");
+                generateWord.addImageToWord(driver);
+            }else {
+                ExtentReportUtil.INSTANCE.stepFail(driver, "No seleccionó ABASTECIMIENTO");
+                generateWord.sendText("No seleccionó ABASTECIMIENTO");
+                generateWord.addImageToWord(driver);
+            }
+
+        }catch (Exception e){
+            ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
+            generateWord.sendText("Tiempo de espera ha excedido");
+            generateWord.addImageToWord(driver);
+        }
+    }
+    public void ingresamosUnComentario(String casoDePrueba) throws Throwable {
+
+        try {
+            int coment = Integer.parseInt(casoDePrueba) - 1;
+            driver.findElement(CargaMateriales.TXT_COMENTARIO).clear();
+            driver.findElement(CargaMateriales.TXT_COMENTARIO).sendKeys("PRUEBAS-QA");
+            ExtentReportUtil.INSTANCE.stepPass(driver, "Ingresamos comentario");
+            generateWord.sendText("Ingresamos comentario");
+            generateWord.addImageToWord(driver);
+
+        }catch (Exception e){
+            ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
+            generateWord.sendText("Tiempo de espera ha excedido");
+            generateWord.addImageToWord(driver);
+        }
+    }
+    public void ingresamosGuiaDeRemision(String casoDePrueba) throws Throwable {
+
+        try {
+            int guiarem = Integer.parseInt(casoDePrueba) - 1;
+            driver.findElement(CargaMateriales.TXT_GUIA_REMISION).clear();
+            int random = ThreadLocalRandom.current().nextInt(10, 99);
+            int random2 = ThreadLocalRandom.current().nextInt(10, 99);
+            int random3 = ThreadLocalRandom.current().nextInt(10, 99);
+            int random4 = ThreadLocalRandom.current().nextInt(1, 9);
+            int random5 = ThreadLocalRandom.current().nextInt(1, 9);
+            int random6 = ThreadLocalRandom.current().nextInt(1, 9);
+            String numero = "12"+random6+random5+"-"+ random + random2 + random3+random4;
+            driver.findElement(CargaMateriales.TXT_GUIA_REMISION).clear();
+            driver.findElement(CargaMateriales.TXT_GUIA_REMISION).sendKeys(numero);
+            ExtentReportUtil.INSTANCE.stepPass(driver, "Ingresamos guia de remision");
+            generateWord.sendText("Ingresamos guia de remision");
+            generateWord.addImageToWord(driver);
+        }catch (Exception e){
+            ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
+            generateWord.sendText("Tiempo de espera ha excedido");
+            generateWord.addImageToWord(driver);
+        }
+    }
+    public void ingresamosElArchivo() throws Throwable {
+
+        try {
+            driver.findElement(CargaMateriales.BTN_ADJUNTAR_ARCHIVOS).click();
+            Actions act = new Actions(driver);
+            act.moveToElement(driver.findElement(CargaMateriales.LNK_ADJUNTAR_NUEVO_ARCHIVO)).build().perform();
+            driver.findElement(CargaMateriales.LNK_ARCHIVO_NUEVO).click();
+            Thread.sleep(2000);
+            System.out.println("passs");
+            Thread.sleep(2000);
+            generateWord.sendText("Agregamos nuevo archivo");
+            generateWord.addImageToWord(driver);
+            driver.switchTo().frame(0);
+            driver.findElement(CargaMateriales.BTN_SELECCIONAR_ARCHIVO).click();
+            Thread.sleep(1000);
+            Robot robot = new Robot();
+            String ruta = "F:\\CargaDeMateriales\\AsignacionSeries_3.csv";
+            String text = ruta;
+            StringSelection stringSelection = new StringSelection(text);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, stringSelection);
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_CONTROL);
+            Thread.sleep(1000);
+            robot.keyPress(KeyEvent.VK_ENTER);
+            Thread.sleep(4000);
+            Screen screen = new Screen();
+            screen.wait(CargaMateriales.BTN_ACEPTAR_ARCHIVO);
+            Region valBtn = screen.find(CargaMateriales.BTN_ACEPTAR_ARCHIVO).highlight(1,"green");
+            screen.click(CargaMateriales.BTN_ACEPTAR_ARCHIVO);
+
+
+        }catch (Exception e){
+            ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
+            generateWord.sendText("Tiempo de espera ha excedido");
+            generateWord.addImageToWord(driver);
+        }
+    }
+    public void clickEnEjecutarAjusteYAceptarMensaje() throws Exception {
+        try {
+            Thread.sleep(5000);
+            driver.findElement(CargaMateriales.BTN_EJECUTAR_AJUSTE).click();
+            ExtentReportUtil.INSTANCE.stepPass(driver, "Ejecutar ajuste");
+            generateWord.sendText("Ejecutar ajuste");
+            generateWord.addImageToWord(driver);
+            Thread.sleep(2000);
+            driver.findElement(CargaMateriales.BTN_ACEPTAR_AJUSTE).click();
+            Thread.sleep(7000);
+            ExtentReportUtil.INSTANCE.stepPass(driver, "Mensaje del sistema");
+            generateWord.sendText("Mensaje del sistema");
+            generateWord.addImageToWord(driver);
+            WebDriverWait wait = new WebDriverWait(driver, 60);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(CargaMateriales.BTN_ACEPTAR_SISTEMA));
+            String text;
+            text = driver.findElement(CargaMateriales.TXT_IMAGEN).getText();
+            text = text.substring(13);
+            if (text.equals("Error en el proceso, verificar el campo de error")){
+                ExtentReportUtil.INSTANCE.stepFail(driver, "Error al cargar materiales");
+                generateWord.sendText("Error al cargar materiales");
+                generateWord.addImageToWord(driver);
+            }
+            if (text.equals("Ajuste ejecutado con éxito") || text.equals(" Ajuste ejecutado con éxito") ){
+                ExtentReportUtil.INSTANCE.stepPass(driver, "Carga de materiales exitoso");
+                generateWord.sendText("Carga de materiales exitoso");
+                generateWord.addImageToWord(driver);
+            }
+            driver.findElement(CargaMateriales.BTN_ACEPTAR_SISTEMA).click();
+            Thread.sleep(4000);
+
+        }catch (Exception e){
+            ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
+            generateWord.sendText("Tiempo de espera ha excedido");
+            generateWord.addImageToWord(driver);
+        }
+    }
+    public void validarQueLosArchivosHayanCargado() throws Exception {
+        try {
+
+            String filas;
+            filas = driver.findElement(CargaMateriales.TABLE).getAttribute("displayrows");
+            int num = Integer.parseInt(filas);
+            for (int  i =0; (i<num); i++){
+                String valor = driver.findElement(By.id("me7037f0c_tdrow_[C:10]-c[R:"+i+"]")).getText();
+                String material = driver.findElement(By.id("me7037f0c_tdrow_[C:7]-c[R:"+i+"]")).getText();
+                System.out.println(material + "  ->  " + valor);
+
+            }
+            ExtentReportUtil.INSTANCE.stepPass(driver, "Detalle de carga");
+            generateWord.sendText("Detalle de carga");
+            generateWord.addImageToWord(driver);
+        }catch (Exception e){
+            ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
+            generateWord.sendText("Tiempo de espera ha excedido");
+            generateWord.addImageToWord(driver);
         }
     }
 }

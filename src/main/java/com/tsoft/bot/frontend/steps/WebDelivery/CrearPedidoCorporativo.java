@@ -27,8 +27,8 @@ public class CrearPedidoCorporativo {
         createCorPed.ingresoElUsuarioDeWEBDELIVERY(casoPrueba);
     }
 
-    @And("^INGRESAMOS CONTRASEÑA A WEB DELIVER\"([^\"]*)\"$")
-    public void ingresamosCONTRASEÑAAWEBDELIVER(String casoPrueba) throws Throwable {
+    @And("^INGRESAMOS PASSWORD WEB DELIVER\"([^\"]*)\"$")
+    public void ingresamosPASSWORDAWEBDELIVER(String casoPrueba) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         // throw new PendingException();
         createCorPed.laContraseñaDeWEBDELIVERY(casoPrueba);
@@ -46,12 +46,12 @@ public class CrearPedidoCorporativo {
     createCorPed.clickEnCrearPedido();
     }
 
-    @When("^Ingresar y buscar el número de RUC \"([^\"]*)\"$")
-    public void ingresarYBuscarElNúmeroDeRUC(String casoPrueba) throws Throwable {
+    @When("^Ingresar y buscar el numero de RUC \"([^\"]*)\"$")
+    public void ingresarYBuscarElNumeroDeRUC(String casoPrueba) throws Throwable {
         createCorPed.ingresarYBuscarElNúmeroDeRUC(casoPrueba);
     }
-    @And("^Ingresar el tipo de pedido y almacén \"([^\"]*)\"$")
-    public void ingresarElTipoDePedidoYAlmacén(String casoPrueba) throws Throwable {
+    @And("^Ingresar el tipo de pedido y almacen \"([^\"]*)\"$")
+    public void ingresarElTipoDePedidoYAlmacen(String casoPrueba) throws Throwable {
         createCorPed.ingresarElTipoDePedidoYAlmacén(casoPrueba);
     }
     @And("^Infromación del solicitante\"([^\"]*)\"$")
