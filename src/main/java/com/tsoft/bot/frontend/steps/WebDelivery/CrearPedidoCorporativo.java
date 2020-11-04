@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 public class CrearPedidoCorporativo {
 
     public WebDriver driver;
-    WebDelivery createCorPed = new WebDelivery();
+    WebDelivery createCorPed = new WebDelivery(driver);
 
     @Given("^INGRESAMOS A LA URL DE WEB DELIVERY \"([^\"]*)\"$")
     public void ingresamosALAURLDEWEBDELIVERY(String casoPrueba) throws Throwable {

@@ -1,6 +1,5 @@
 package com.tsoft.bot.frontend.steps.component.common;
 
-import com.tsoft.bot.frontend.BaseClass;
 import com.tsoft.bot.frontend.utility.GenerateWord;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.NoSuchSessionException;

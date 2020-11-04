@@ -1,5 +1,6 @@
 package com.tsoft.bot.frontend.pages.pages;
 
+import com.tsoft.bot.frontend.Base.BaseClass;
 import com.tsoft.bot.frontend.helpers.Hook;
 import com.tsoft.bot.frontend.pages.objects.CargaMateriales;
 import com.tsoft.bot.frontend.pages.objects.Corporativo;
@@ -26,37 +27,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class WebDelivery {
-    ExcelWebDelivery exCreatePed = new ExcelWebDelivery();
+public class WebDelivery extends BaseClass {
 
     public WebDriver driver;
-    String step = "";
     static GenerateWord generateWord = new GenerateWord();
 
-    private List<HashMap<String, String>> getData() throws Throwable {
-        return ExcelReader.data(exCreatePed.EXCEL_WEB, exCreatePed.ORDEN);
-    }
-
-    public WebDelivery() {
+    public WebDelivery( WebDriver driver) {
+        super(driver);
         this.driver = Hook.getDriver();
     }
+    private List<HashMap<String, String>> getData() throws Throwable {
+        return ExcelReader.data(ExcelWebDelivery.EXCEL_WEB, ExcelWebDelivery.ORDEN);
+    }
+
     String PEDIDO;
     public void ingresoALaUrlDeWEBDELIVERY(String casoDePrueba) throws Throwable {
         try {
 
             int LoginWD = Integer.parseInt(casoDePrueba) - 1;
-            String url = getData().get(LoginWD).get(exCreatePed.COLUMNA_URL);
+            String url = getData().get(LoginWD).get(ExcelWebDelivery.COLUMNA_URL);
             driver.get(url);
-
-            ExtentReportUtil.INSTANCE.stepPass(driver, "Se cargó correctamente la página");
+            stepPass(driver,"Se cargó correctamente la página");
             generateWord.sendText("Carga correcta de la página");
             generateWord.addImageToWord(driver);
+            println("Se cargó correctamente la página");
             generateWord.sendBreak();
-            System.out.println(ImagePath.getBundlePath());
-
-
         }catch (Exception e){
-            ExcelReader.writeCellValue(exCreatePed.EXCEL_WEB, exCreatePed.ORDEN, 1, 19, "FAIL");
+            ExcelReader.writeCellValue(ExcelWebDelivery.EXCEL_WEB, ExcelWebDelivery.ORDEN, 1, 19, "FAIL");
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
             generateWord.sendText("Tiempo de espera ha excedido");
             generateWord.addImageToWord(driver);
@@ -67,19 +64,23 @@ public class WebDelivery {
 
         try {
             int user = Integer.parseInt(casoDePrueba) - 1;
-            String usuario = getData().get(user).get(exCreatePed.COLUMNA_USUARIO);
-            WebDriverWait wait = new WebDriverWait(driver, 60);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_USER));
-            if (driver.findElement(Corporativo.TXT_USER).isDisplayed()){
-                driver.findElement(Corporativo.TXT_USER).clear();
-                driver.findElement(Corporativo.TXT_USER).sendKeys(usuario);
+            String usuario = getData().get(user).get(ExcelWebDelivery.COLUMNA_USUARIO);
+            wait(driver,Corporativo.TXT_USER,60);
+           // WebDriverWait wait = new WebDriverWait(driver, 60);
+            //wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_USER));
+            if (isDisplayed(driver,Corporativo.TXT_USER)){
+                clear(driver,Corporativo.TXT_USER);
+                //driver.findElement(Corporativo.TXT_USER).clear();
+                sendKeys(driver,Corporativo.TXT_USER,usuario);
+                //driver.findElement(Corporativo.TXT_USER).sendKeys(usuario);
             }
-            ExtentReportUtil.INSTANCE.stepPass(driver, "Ingresamos el usuario");
+            stepPass(driver,"Ingresamos el usuario");
             generateWord.sendText("Ingresamos el usuario");
             generateWord.addImageToWord(driver);
+            println("Ingresamos el usuario");
 
         }catch (Exception e){
-            ExcelReader.writeCellValue(exCreatePed.EXCEL_WEB, exCreatePed.ORDEN, 1, 19, "FAIL");
+            ExcelReader.writeCellValue(ExcelWebDelivery.EXCEL_WEB, ExcelWebDelivery.ORDEN, 1, 19, "FAIL");
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
             generateWord.sendText("Tiempo de espera ha excedido");
             generateWord.addImageToWord(driver);
@@ -92,17 +93,21 @@ public class WebDelivery {
 
         try {
             int PASS = Integer.parseInt(casoDePrueba) - 1;
-            WebDriverWait wait = new WebDriverWait(driver, 60);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_PASSWORD));
-            driver.findElement(Corporativo.TXT_PASSWORD).clear();
-            String contra = getData().get(PASS).get(exCreatePed.COLUMNA_CONTRASENIA);
-            driver.findElement(Corporativo.TXT_PASSWORD).sendKeys(contra);
-            ExtentReportUtil.INSTANCE.stepPass(driver, "Ingresamos la contraseña");
+            wait(driver,Corporativo.TXT_PASSWORD,60);
+            //WebDriverWait wait = new WebDriverWait(driver, 60);
+            //wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_PASSWORD));
+            clear(driver, Corporativo.TXT_PASSWORD);
+            //driver.findElement(Corporativo.TXT_PASSWORD).clear();
+            String contra = getData().get(PASS).get(ExcelWebDelivery.COLUMNA_CONTRASENIA);
+            sendKeys(driver,Corporativo.TXT_PASSWORD,contra);
+            //driver.findElement(Corporativo.TXT_PASSWORD).sendKeys(contra);
+            stepPass(driver,"Ingresamos la contraseña");
             generateWord.sendText("Ingresamos la contraseña");
             generateWord.addImageToWord(driver);
+            println("Ingresamos la contraseña");
 
         }catch (Exception e){
-            ExcelReader.writeCellValue(exCreatePed.EXCEL_WEB, exCreatePed.ORDEN, 1, 19, "FAIL");
+            ExcelReader.writeCellValue(ExcelWebDelivery.EXCEL_WEB, ExcelWebDelivery.ORDEN, 1, 19, "FAIL");
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
             generateWord.sendText("Tiempo de espera ha excedido");
             generateWord.addImageToWord(driver);
@@ -110,25 +115,29 @@ public class WebDelivery {
     }
     public void seDaClicEnElBotonLoginDeWEBDELIVERYIngresandoCorrectamente() throws Throwable {
         try {
-            driver.findElement(Corporativo.BTN_LOGIN).click();
-            Thread.sleep(2000);
-            ExtentReportUtil.INSTANCE.stepPass(driver, "Se ingresa correctamente");
-            generateWord.sendText("Se ingresa correctamente");
+            click(driver,Corporativo.BTN_LOGIN);
+            //driver.findElement(Corporativo.BTN_LOGIN).click();
+            sleep(2000);
+            stepPass(driver,"Se ingresa correctamente a la pagina");
+            generateWord.sendText("Se ingresa correctamente a la pagina");
             generateWord.addImageToWord(driver);
+            println("Se ingresa correctamente a la pagina");
         }catch (Exception e){
-            ExcelReader.writeCellValue(exCreatePed.EXCEL_WEB, exCreatePed.ORDEN, 1, 19, "FAIL");
+            ExcelReader.writeCellValue(ExcelWebDelivery.EXCEL_WEB, ExcelWebDelivery.ORDEN, 1, 19, "FAIL");
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
             generateWord.sendText("Tiempo de espera ha excedido");
             generateWord.addImageToWord(driver);
         }
     }
-    public void clickEnCrearPedido() throws Exception {
+    public void clickEnCrearPedido() throws Throwable {
         try {
-            driver.findElement(Corporativo.LNK_CREAR_PEDIDO).click();
-            Thread.sleep(3000);
-            ExtentReportUtil.INSTANCE.stepPass(driver, "Crear Pedido");
-            generateWord.sendText("Crear Pedido");
+            click(driver,Corporativo.LNK_CREAR_PEDIDO);
+            //driver.findElement(Corporativo.LNK_CREAR_PEDIDO).click();
+            sleep(3000);
+            stepPass(driver,"Seleccionamos crear pedido");
+            generateWord.sendText("Seleccionamos crear pedido");
             generateWord.addImageToWord(driver);
+            println("Seleccionamos crear pedido");
         } catch (Exception e) {
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
             generateWord.sendText("Tiempo de espera ha excedido");
@@ -138,36 +147,48 @@ public class WebDelivery {
     public void ingresarYBuscarElNúmeroDeRUC(String casoDePrueba) throws Throwable {
 
         try {
-            Thread.sleep(2000);
-            driver.findElement(Corporativo.BTN_LUPA).click();
-            WebDriverWait wait = new WebDriverWait(driver, 60);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_RUC));
+            sleep(2000);
+            click(driver,Corporativo.BTN_LUPA);
+            //driver.findElement(Corporativo.BTN_LUPA).click();
+            //WebDriverWait wait = new WebDriverWait(driver, 60);
+            //wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_RUC));
+            wait(driver,Corporativo.TXT_RUC,60);
             int user = Integer.parseInt(casoDePrueba) - 1;
-            String usuario = getData().get(user).get(exCreatePed.NUM_RUC);
-            driver.findElement(Corporativo.TXT_RUC).sendKeys(usuario);
-            driver.findElement(Corporativo.TXT_RUC).sendKeys(Keys.ENTER);
-            String f = driver.findElement(Corporativo.LNK_RUC).getText();
+            String usuario = getData().get(user).get(ExcelWebDelivery.NUM_RUC);
+            sendKeys(driver,Corporativo.TXT_RUC,usuario);
+            //driver.findElement(Corporativo.TXT_RUC).sendKeys(usuario);
+            sendKeysRobot(driver,Corporativo.TXT_RUC,Keys.ENTER);
+            //driver.findElement(Corporativo.TXT_RUC).sendKeys(Keys.ENTER);
+            String f ;
+            f= getText(driver,Corporativo.LNK_RUC);
+            //driver.findElement(Corporativo.LNK_RUC).getText();
             while (!f.equals(usuario)) {
-                Thread.sleep(1000);
+                sleep(1000);
                 String g;
-                g = driver.findElement(Corporativo.TXT_VACIO2).getText();
+                //g = driver.findElement(Corporativo.TXT_VACIO2).getText();
+                g = getText(driver,Corporativo.TXT_VACIO2);
                 if (g.equals("0 - 0 de 0")){
-                    ExtentReportUtil.INSTANCE.stepPass(driver, "RUC no encontrado");
+                    stepFail(driver,"RUC no encontrado");
+                    //ExtentReportUtil.INSTANCE.stepPass(driver, "RUC no encontrado");
                     generateWord.sendText("RUC no encontrado");
                     generateWord.addImageToWord(driver);
+                    println("RUC no encontrado");
                     driver.quit();
                 }else{
-                    f = driver.findElement(Corporativo.LNK_RUC).getText();
+                    f = getText(driver,Corporativo.LNK_RUC);
                 }
             }
-            ExtentReportUtil.INSTANCE.stepPass(driver, "Descripción de la empresa");
-            generateWord.sendText("Descripción de la empresa");
+            stepPass(driver,"Se obtiene la descripción de la empresa");
+            generateWord.sendText("Se obtiene la descripción de la empresa");
             generateWord.addImageToWord(driver);
-            driver.findElement(Corporativo.LNK_RUC).click();
-            Thread.sleep(5000);
-            ExtentReportUtil.INSTANCE.stepPass(driver, "Datos del RUC");
+           println("Se obtiene la descripción de la empresa");
+           click(driver,Corporativo.LNK_RUC);
+            //driver.findElement(Corporativo.LNK_RUC).click();
+            sleep(5000);
+            stepPass(driver,"Datos del RUC");
             generateWord.sendText("Datos del RUC");
             generateWord.addImageToWord(driver);
+            println("Datos del RUC");
 
         }catch (Exception e){
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
@@ -179,72 +200,94 @@ public class WebDelivery {
     public void ingresarElTipoDePedidoYAlmacén(String casoDePrueba) throws Throwable {
 
         try {
-            Thread.sleep(3000);
-            driver.findElement(Corporativo.BTN_LUPA2).click();
-            WebDriverWait wait = new WebDriverWait(driver, 60);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_TIPO_ALMACEN));
+            sleep(3000);
+            click(driver,Corporativo.BTN_LUPA2);
+            //driver.findElement(Corporativo.BTN_LUPA2).click();
+           // WebDriverWait wait = new WebDriverWait(driver, 60);
+            //wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_TIPO_ALMACEN));
+            wait(driver,Corporativo.TXT_TIPO_ALMACEN,60);
             int pedido = Integer.parseInt(casoDePrueba) - 1;
-            String tipo = getData().get(pedido).get(exCreatePed.TIPO);
+            String tipo = getData().get(pedido).get(ExcelWebDelivery.TIPO);
             if (tipo.equals("CAMBIO")){
-                driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys("CAMBIO");
-                driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(Keys.ENTER);
-                Thread.sleep(3000);
+                sendKeys(driver,Corporativo.TXT_TIPO_ALMACEN,"CAMBIO");
+                //driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys("CAMBIO");
+                sendKeysRobot(driver,Corporativo.TXT_TIPO_ALMACEN,Keys.ENTER);
+                //driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(Keys.ENTER);
+                sleep(3000);
             }
             if (tipo.equals("ALTA COMBO")|| tipo.equals("ALTA SOLO SIM")){
-                driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys("ALTA");
-                driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(Keys.ENTER);
-                Thread.sleep(3000);
+                sendKeys(driver,Corporativo.TXT_TIPO_ALMACEN,"ALTA");
+                //driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys("ALTA");
+                sendKeysRobot(driver,Corporativo.TXT_TIPO_ALMACEN,Keys.ENTER);
+                //driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(Keys.ENTER);
+                sleep(3000);
             }
-
-            ExtentReportUtil.INSTANCE.stepPass(driver, "Tipo de pedido");
-            generateWord.sendText("Tipo de pedido");
+            stepPass(driver,"Seleccionamos tipo de pedido");
+            generateWord.sendText("Seleccionamos tipo de pedido");
             generateWord.addImageToWord(driver);
-            driver.findElement(Corporativo.LNK_TIPO_PEDIDO_CAMBIO).click();
-            Thread.sleep(3000);
+            println("Seleccionamos tipo de pedido");
+            click(driver,Corporativo.LNK_TIPO_PEDIDO_CAMBIO);
+            //driver.findElement(Corporativo.LNK_TIPO_PEDIDO_CAMBIO).click();
+            sleep(3000);
             int SAL_ANT = Integer.parseInt(casoDePrueba) - 1;
-            String SALANT = getData().get(SAL_ANT).get(exCreatePed.SALIDA_ANTICIPADA);
+            String SALANT = getData().get(SAL_ANT).get(ExcelWebDelivery.SALIDA_ANTICIPADA);
             if (SALANT.equals("SI")){
-                driver.findElement(Corporativo.CHECK_SALIDA_ANTICIPADA).click();
+                click(driver,Corporativo.CHECK_SALIDA_ANTICIPADA);
+                //driver.findElement(Corporativo.CHECK_SALIDA_ANTICIPADA).click();
             }
-            driver.findElement(Corporativo.BTN_LUPA3).click();
-            wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_TIPO_ALMACEN));
-            driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys("PE10API7");
-            driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(Keys.ENTER);
-            Thread.sleep(5000);
-            ExtentReportUtil.INSTANCE.stepPass(driver, "Almacén");
+            click(driver,Corporativo.BTN_LUPA3);
+            //driver.findElement(Corporativo.BTN_LUPA3).click();
+            wait(driver,Corporativo.TXT_TIPO_ALMACEN,60);
+            //wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_TIPO_ALMACEN));
+            sendKeys(driver,Corporativo.TXT_TIPO_ALMACEN,"PE10API7");
+            //driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys("PE10API7");
+            sendKeysRobot(driver,Corporativo.TXT_TIPO_ALMACEN,Keys.ENTER);
+            //driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(Keys.ENTER);
+            sleep(5000);
+            stepPass(driver,"Almacén");
             generateWord.sendText("Almacén");
             generateWord.addImageToWord(driver);
-            driver.findElement(Corporativo.LNK_TIPO_ALMACEN).click();
-            Thread.sleep(3000);
-            driver.findElement(Corporativo.BTN_LUPA8).click();
-            wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_TIPO_ALMACEN));
+            click(driver,Corporativo.LNK_TIPO_ALMACEN);
+            //driver.findElement(Corporativo.LNK_TIPO_ALMACEN).click();
+            sleep(3000);
+            click(driver,Corporativo.BTN_LUPA8);
+            //driver.findElement(Corporativo.BTN_LUPA8).click();
+            wait(driver,Corporativo.TXT_TIPO_ALMACEN,60);
+            //wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_TIPO_ALMACEN));
             int pedido2 = Integer.parseInt(casoDePrueba) - 1;
-            String tipo2 = getData().get(pedido2).get(exCreatePed.TIPO_PAGO);
+            String tipo2 = getData().get(pedido2).get(ExcelWebDelivery.TIPO_PAGO);
             if (tipo2.equals("PAGO EFECTIVO")){
-                driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys("PAGO EFECTIVO");
-                driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(Keys.ENTER);
+                sendKeys(driver,Corporativo.TXT_TIPO_ALMACEN,"PAGO EFECTIVO");
+                //driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys("PAGO EFECTIVO");
+                sendKeysRobot(driver,Corporativo.TXT_TIPO_ALMACEN,Keys.ENTER);
+                //driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(Keys.ENTER);
             }
             if (tipo2.equals("FINANCIADO")){
-                driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys("FINANCIADO");
-                driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(Keys.ENTER);
+                sendKeys(driver,Corporativo.TXT_TIPO_ALMACEN,"FINANCIADO");
+                //driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys("FINANCIADO");
+                sendKeysRobot(driver,Corporativo.TXT_TIPO_ALMACEN,Keys.ENTER);
+                //driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(Keys.ENTER);
             }
             if (tipo2.equals("OTROS")){
-                driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys("OTROS");
-                driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(Keys.ENTER);
+                sendKeys(driver,Corporativo.TXT_TIPO_ALMACEN,"OTROS");
+                //driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys("OTROS");
+                sendKeysRobot(driver,Corporativo.TXT_TIPO_ALMACEN,Keys.ENTER);
+                //driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(Keys.ENTER);
             }
             if (tipo2.equals("NO")){
-                Thread.sleep(1000);
+                sleep(1000);
             }
-            Thread.sleep(5000);
-            ExtentReportUtil.INSTANCE.stepPass(driver, "Tipo de pago");
+           sleep(5000);
+            stepPass(driver,"Tipo de pago");
             generateWord.sendText("Tipo de pago");
-            Thread.sleep(2000);
-            driver.findElement(Corporativo.LNK_PAGO_EFECTIVO).click();
-            Thread.sleep(3000);
-            ExtentReportUtil.INSTANCE.stepPass(driver, "Datos del pedido completos");
+            sleep(2000);
+            click(driver,Corporativo.LNK_PAGO_EFECTIVO);
+            //driver.findElement(Corporativo.LNK_PAGO_EFECTIVO).click();
+           sleep(3000);
+           stepPass(driver,"Datos del pedido completos");
             generateWord.sendText("Datos del pedido completos");
             generateWord.addImageToWord(driver);
-
+            println("Datos del pedido ingresados correctamente");
         }catch (Exception e){
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
             generateWord.sendText("Tiempo de espera ha excedido");
@@ -256,26 +299,32 @@ public class WebDelivery {
     public void infromaciónDelSolicitante(String casoDePrueba) throws Throwable {
 
         try {
-            Thread.sleep(2000);
-            driver.findElement(Corporativo.TXT_N_DOCUMENTO).click();
-            driver.findElement(Corporativo.BTN_LUPA4).click();
-            WebDriverWait wait = new WebDriverWait(driver, 60);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_TIPO_ALMACEN));
+            sleep(2000);
+            click(driver,Corporativo.TXT_N_DOCUMENTO);
+            //driver.findElement(Corporativo.TXT_N_DOCUMENTO).click();
+            sleep(1000);
+            click(driver,Corporativo.BTN_LUPA4);
+            //driver.findElement(Corporativo.BTN_LUPA4).click();
+            //WebDriverWait wait = new WebDriverWait(driver, 60);
+            //wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_TIPO_ALMACEN));
+            wait(driver,Corporativo.TXT_TIPO_ALMACEN,60);
             int user = Integer.parseInt(casoDePrueba) - 1;
-            String usuario = getData().get(user).get(exCreatePed.N_DOCUMENTO);
-            driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(usuario);
-            driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(Keys.ENTER);
-            Thread.sleep(3000);
-            ExtentReportUtil.INSTANCE.stepPass(driver, "Datos del solicitante");
+            String usuario = getData().get(user).get(ExcelWebDelivery.N_DOCUMENTO);
+            sendKeys(driver, Corporativo.TXT_TIPO_ALMACEN,usuario);
+            //driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(usuario);
+            sendKeysRobot(driver,Corporativo.TXT_TIPO_ALMACEN,Keys.ENTER);
+            //driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(Keys.ENTER);
+           sleep(3000);
+           stepPass(driver,"Datos del solicitante");
             generateWord.sendText("Datos del solicitante");
             generateWord.addImageToWord(driver);
-            driver.findElement(Corporativo.LNK_TIPO_PEDIDO_CAMBIO).click();
-            Thread.sleep(3000);
-            ExtentReportUtil.INSTANCE.stepPass(driver, "Información del solicitante completo");
+            click(driver,Corporativo.LNK_TIPO_PEDIDO_CAMBIO);
+            //driver.findElement(Corporativo.LNK_TIPO_PEDIDO_CAMBIO).click();
+           sleep(3000);
+           stepPass(driver,"Información del solicitante completo");
             generateWord.sendText("Información del solicitante completo");
             generateWord.addImageToWord(driver);
-
-
+            println("Información del solicitante ingresada correctamente");
         }catch (Exception e){
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
             generateWord.sendText("Tiempo de espera ha excedido");
@@ -283,21 +332,24 @@ public class WebDelivery {
 
         }
     }
-    public void direcciónDeEntrega() throws Exception {
+    public void direcciónDeEntrega() throws Throwable {
         try {
-            Thread.sleep(2000);
-            driver.findElement(Corporativo.BTN_LUPA5).click();
-            WebDriverWait wait = new WebDriverWait(driver, 60);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.LNK_TIPO_PEDIDO_CAMBIO));
-            ExtentReportUtil.INSTANCE.stepPass(driver, "Descripción de dirección");
+            sleep(2000);
+            click(driver,Corporativo.BTN_LUPA5);
+           // driver.findElement(Corporativo.BTN_LUPA5).click();
+            //WebDriverWait wait = new WebDriverWait(driver, 60);
+            //wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.LNK_TIPO_PEDIDO_CAMBIO));
+            wait(driver,Corporativo.LNK_TIPO_PEDIDO_CAMBIO,60);
+            stepPass(driver,"Descripción de dirección");
             generateWord.sendText("Descripción de dirección");
             generateWord.addImageToWord(driver);
-            driver.findElement(Corporativo.LNK_TIPO_PEDIDO_CAMBIO).click();
-            Thread.sleep(3000);
-            ExtentReportUtil.INSTANCE.stepPass(driver, "Dirección de entrega completo");
+            click(driver,Corporativo.LNK_TIPO_PEDIDO_CAMBIO);
+            //driver.findElement(Corporativo.LNK_TIPO_PEDIDO_CAMBIO).click();
+            sleep(3000);
+            stepPass(driver,"Dirección de entrega completo");
             generateWord.sendText("Dirección de entrega completo");
             generateWord.addImageToWord(driver);
-
+            println("Se ingreso correctamente la dirección");
 
         }catch (Exception e){
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
@@ -309,15 +361,20 @@ public class WebDelivery {
     public void informaciónDelReceptor(String casoDePrueba) throws Throwable {
 
         try {
-            Thread.sleep(2000);
-            driver.findElement(Corporativo.TXT_N_DOCUMENTO2).click();
-            driver.findElement(Corporativo.BTN_LUPA9).click();
-            WebDriverWait wait = new WebDriverWait(driver, 60);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_TIPO_ALMACEN));
+           sleep(2000);
+           click(driver,Corporativo.TXT_N_DOCUMENTO2);
+            //driver.findElement(Corporativo.TXT_N_DOCUMENTO2).click();
+            click(driver,Corporativo.BTN_LUPA9);
+            //driver.findElement(Corporativo.BTN_LUPA9).click();
+            //WebDriverWait wait = new WebDriverWait(driver, 60);
+            //wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_TIPO_ALMACEN));
+            wait(driver,Corporativo.TXT_TIPO_ALMACEN,60);
             int user = Integer.parseInt(casoDePrueba) - 1;
-            String usuario = getData().get(user).get(exCreatePed.N_DOCUMENTO_RECEP);
-            driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(usuario);
-            driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(Keys.ENTER);
+            String usuario = getData().get(user).get(ExcelWebDelivery.N_DOCUMENTO_RECEP);
+            sendKeys(driver,Corporativo.TXT_TIPO_ALMACEN,usuario);
+            //driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(usuario);
+            sendKeysRobot(driver,Corporativo.TXT_TIPO_ALMACEN,Keys.ENTER);
+            //driver.findElement(Corporativo.TXT_TIPO_ALMACEN).sendKeys(Keys.ENTER);
             Thread.sleep(3000);
             ExtentReportUtil.INSTANCE.stepPass(driver, "Información del contacto");
             generateWord.sendText("Información del contacto");
@@ -378,15 +435,15 @@ public class WebDelivery {
         try {
 
             int pedido = Integer.parseInt(casoDePrueba) - 1;
-            String tipo = getData().get(pedido).get(exCreatePed.TIPO);
+            String tipo = getData().get(pedido).get(ExcelWebDelivery.TIPO);
             if (tipo.equals("CAMBIO")){
-                String cambio_2 = getData().get(0).get(exCreatePed.TIPO_CAMBIO);
+                String cambio_2 = getData().get(0).get(ExcelWebDelivery.TIPO_CAMBIO);
                 if (cambio_2.equals("SOLO SIM")  ){
                     driver.findElement(Corporativo.BTN_LUPA7).click();
                     WebDriverWait wait = new WebDriverWait(driver, 60);
                     wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_RUC));
                     int user3 = Integer.parseInt(casoDePrueba) - 1;
-                    String usuario3 = getData().get(user3).get(exCreatePed.COD_SAP);
+                    String usuario3 = getData().get(user3).get(ExcelWebDelivery.COD_SAP);
                     driver.findElement(Corporativo.TXT_RUC).sendKeys(usuario3);
                     driver.findElement(Corporativo.TXT_RUC).sendKeys(Keys.ENTER);
                     Thread.sleep(3000);
@@ -396,7 +453,7 @@ public class WebDelivery {
                     driver.findElement(Corporativo.LNK_TIPO_PEDIDO_CAMBIO).click();
                     Thread.sleep(3000);
                     int pedido3 = Integer.parseInt(casoDePrueba) - 1;
-                    String tipo3 = getData().get(pedido3).get(exCreatePed.CANT_LINEAS);
+                    String tipo3 = getData().get(pedido3).get(ExcelWebDelivery.CANT_LINEAS);
                     driver.findElement(Corporativo.TXT_CANTIDAD_SOLICITADA).sendKeys(tipo3);
                     Thread.sleep(2000);
                     ExtentReportUtil.INSTANCE.stepPass(driver, "Linea de detalle de solicitud completa");
@@ -431,7 +488,7 @@ public class WebDelivery {
                 WebDriverWait wait = new WebDriverWait(driver, 60);
                 wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_RUC));
                 int user2 = Integer.parseInt(casoDePrueba) - 1;
-                String usuario2 = getData().get(user2).get(exCreatePed.COD_SAP_EQUIPO);
+                String usuario2 = getData().get(user2).get(ExcelWebDelivery.COD_SAP_EQUIPO);
                 driver.findElement(Corporativo.TXT_RUC).sendKeys(usuario2);
                 driver.findElement(Corporativo.TXT_RUC).sendKeys(Keys.ENTER);
                 Thread.sleep(3000);
@@ -443,7 +500,7 @@ public class WebDelivery {
                 driver.findElement(Corporativo.BTN_LUPA7).click();
                 Thread.sleep(3000);
                 int user3 = Integer.parseInt(casoDePrueba) - 1;
-                String usuario3 = getData().get(user3).get(exCreatePed.COD_SAP);
+                String usuario3 = getData().get(user3).get(ExcelWebDelivery.COD_SAP);
                 driver.findElement(Corporativo.TXT_RUC).sendKeys(usuario3);
                 driver.findElement(Corporativo.TXT_RUC).sendKeys(Keys.ENTER);
                 Thread.sleep(3000);
@@ -453,7 +510,7 @@ public class WebDelivery {
                 driver.findElement(Corporativo.LNK_TIPO_PEDIDO_CAMBIO).click();
                 Thread.sleep(3000);
                 int pedido3 = Integer.parseInt(casoDePrueba) - 1;
-                String tipo3 = getData().get(pedido3).get(exCreatePed.CANT_LINEAS);
+                String tipo3 = getData().get(pedido3).get(ExcelWebDelivery.CANT_LINEAS);
                 driver.findElement(Corporativo.TXT_CANTIDAD_SOLICITADA).sendKeys(tipo3);
                 Thread.sleep(2000);
                 ExtentReportUtil.INSTANCE.stepPass(driver, "Linea de detalle de solicitud completa");
@@ -465,7 +522,7 @@ public class WebDelivery {
                 WebDriverWait wait = new WebDriverWait(driver, 60);
                 wait.until(ExpectedConditions.visibilityOfElementLocated(Corporativo.TXT_RUC));
                 int user3 = Integer.parseInt(casoDePrueba) - 1;
-                String usuario3 = getData().get(user3).get(exCreatePed.COD_SAP);
+                String usuario3 = getData().get(user3).get(ExcelWebDelivery.COD_SAP);
                 driver.findElement(Corporativo.TXT_RUC).sendKeys(usuario3);
                 driver.findElement(Corporativo.TXT_RUC).sendKeys(Keys.ENTER);
                 Thread.sleep(3000);
@@ -475,7 +532,7 @@ public class WebDelivery {
                 driver.findElement(Corporativo.LNK_TIPO_PEDIDO_CAMBIO).click();
                 Thread.sleep(3000);
                 int pedido3 = Integer.parseInt(casoDePrueba) - 1;
-                String tipo3 = getData().get(pedido3).get(exCreatePed.CANT_LINEAS);
+                String tipo3 = getData().get(pedido3).get(ExcelWebDelivery.CANT_LINEAS);
                 driver.findElement(Corporativo.TXT_CANTIDAD_SOLICITADA).sendKeys(tipo3);
                 Thread.sleep(2000);
                 ExtentReportUtil.INSTANCE.stepPass(driver, "Linea de detalle de solicitud completa");
@@ -571,7 +628,7 @@ public class WebDelivery {
     public void clickBotónEnviar() throws Throwable {
 
 
-        String SALANT = getData().get(0).get(exCreatePed.SALIDA_ANTICIPADA);
+        String SALANT = getData().get(0).get(ExcelWebDelivery.SALIDA_ANTICIPADA);
         if (SALANT.equals("SI")) {
             driver.findElement(Corporativo.BTN_ENVIAR_SALIDA_ANTICIPADA).click();
         }else{
@@ -608,7 +665,7 @@ public class WebDelivery {
                 generateWord.sendText("Código de pedido");
                 generateWord.addImageToWord(driver);
                 System.out.println("EL Numero del pedido es el siguiente:" + PEDIDO);
-                ExcelReader.writeCellValue(exCreatePed.EXCEL_WEB,exCreatePed.ORDEN,pedido,14,PEDIDO);
+                ExcelReader.writeCellValue(ExcelWebDelivery.EXCEL_WEB,ExcelWebDelivery.ORDEN,pedido,14,PEDIDO);
 
 
             }else {
@@ -630,7 +687,7 @@ public class WebDelivery {
             driver.findElement(CargaMateriales.LST_IR_A).click();
             ExtentReportUtil.INSTANCE.stepPass(driver, "IR A lista de pedidos");
         }catch (Exception e){
-            ExcelReader.writeCellValue(exCreatePed.EXCEL_WEB, exCreatePed.ORDEN, 1, 19, "FAIL");
+            ExcelReader.writeCellValue(ExcelWebDelivery.EXCEL_WEB, ExcelWebDelivery.ORDEN, 1, 19, "FAIL");
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
             generateWord.sendText("Tiempo de espera ha excedido");
             generateWord.addImageToWord(driver);
