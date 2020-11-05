@@ -2,7 +2,7 @@ package com.tsoft.bot.frontend.pages.objects;
 
 import org.openqa.selenium.By;
 
-public class Corporativo {
+public class O_Corporate {
     public static By TXT_USER = By.id("username");
     public static By TXT_PASSWORD = By.id("password");
     public static By BTN_LOGIN = By.id("loginbutton");

@@ -5,6 +5,7 @@ import com.tsoft.bot.frontend.utility.ExtentReportUtil;
 import com.tsoft.bot.frontend.utility.GenerateWord;
 import com.tsoft.bot.frontend.utility.Sleeper;
 import org.apache.commons.lang3.StringUtils;
+//import org.apache.poi.ss.formula.PlainCellCache;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -40,15 +41,17 @@ public class BaseClass {
             throw we;
         }
     }
-    protected String getText(WebDriver driver, By locator) {
+
+    protected String getAttribute(WebDriver driver, By locator, String attribute) {
         try {
-            driver.findElement(locator).getText();
+            driver.findElement(locator).getAttribute(attribute);
         }catch (Throwable we){
             errorNoElementFound(driver, locator);
             throw we;
         }
         return null;
     }
+
 
     protected void typeText(WebDriver driver, By locator, String inputText){
         try {

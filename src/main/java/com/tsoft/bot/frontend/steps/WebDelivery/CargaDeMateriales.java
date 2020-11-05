@@ -1,15 +1,13 @@
 package com.tsoft.bot.frontend.steps.WebDelivery;
 
-import com.tsoft.bot.frontend.pages.pages.WebDelivery;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.When;
+import com.tsoft.bot.frontend.pages.pages.P_Corporate;
 import org.openqa.selenium.WebDriver;
 
 
 public class CargaDeMateriales {
     public WebDriver driver;
-    WebDelivery createCorPed = new WebDelivery();
+    P_Corporate createCorPed = new P_Corporate(driver);
+    /*
 
     @Given("^Se da click en el boton IR A en WEB DELIVERY \"([^\"]*)\"$")
     public void seDaClickEnElBotonIRAEnWEBDELIVERY(String casoPrueba) throws Throwable {
@@ -53,6 +51,6 @@ public class CargaDeMateriales {
     @And("^validar que los archivos hayan cargado$")
     public void validarQueLosArchivosHayanCargado() throws Exception {
         createCorPed.validarQueLosArchivosHayanCargado();
-    }
+    }*/
 
 }

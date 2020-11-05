@@ -8,6 +8,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import cucumber.api.Scenario;
+
 import javafx.stage.Screen;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;

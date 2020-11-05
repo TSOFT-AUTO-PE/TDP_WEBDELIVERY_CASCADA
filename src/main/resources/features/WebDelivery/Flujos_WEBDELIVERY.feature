@@ -1,7 +1,7 @@
 Feature: FlujoWEB_DELIVERY
 
 
-  @CREAR_PEDIDO @FlujoCompleto
+  @CREAR_PEDIDO
   Scenario Outline: Crear Pedido_ALTA_MASIVA_CAEQ_MASIVO
     Given INGRESAMOS A LA URL DE WEB DELIVERY "<caso_prueba>"
     When INGRESAMOS USUARIO A WEB DELIVERY"<caso_prueba>"
@@ -21,7 +21,7 @@ Feature: FlujoWEB_DELIVERY
     And Click botón generar detalles del pedido
     And Click botón continuar
     And Click botón continuar siguiente
-    And Click botón enviar
+    And Click botón enviar "<caso_prueba>"
     Then Guardar el código de pedido "<caso_prueba>"
 
     Examples:
@@ -49,3 +49,4 @@ Feature: FlujoWEB_DELIVERY
     Examples:
       | caso_prueba |
       |           1 |
+
