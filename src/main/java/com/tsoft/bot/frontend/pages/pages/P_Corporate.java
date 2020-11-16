@@ -36,7 +36,7 @@ public class P_Corporate extends BaseClass {
             stepPass(driver,"Se cargó correctamente la página");
             generateWord.sendText("Carga correcta de la página");
             generateWord.addImageToWord(driver);
-            println("Se cargó correctamente la página");
+            println("[LOG] Se cargó correctamente la página");
             generateWord.sendBreak();
         }catch (Exception e){
             ExcelReader.writeCellValue(ExcelWebDelivery.EXCEL_WEB, ExcelWebDelivery.ORDEN, 1, 19, "FAIL");
@@ -59,7 +59,8 @@ public class P_Corporate extends BaseClass {
             stepPass(driver,"Ingresamos el usuario");
             generateWord.sendText("Ingresamos el usuario");
             generateWord.addImageToWord(driver);
-            println("Ingresamos el usuario");
+            println("[LOG] Ingresamos usuario");
+
 
         }catch (Exception e){
             ExcelReader.writeCellValue(ExcelWebDelivery.EXCEL_WEB, ExcelWebDelivery.ORDEN, 1, 19, "FAIL");
@@ -82,7 +83,7 @@ public class P_Corporate extends BaseClass {
             stepPass(driver,"Ingresamos la contraseña");
             generateWord.sendText("Ingresamos la contraseña");
             generateWord.addImageToWord(driver);
-            println("Ingresamos la contraseña");
+            println("[LOG] Ingresamos contraseña");
         }catch (Exception e){
             ExcelReader.writeCellValue(ExcelWebDelivery.EXCEL_WEB, ExcelWebDelivery.ORDEN, 1, 19, "FAIL");
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
@@ -98,7 +99,7 @@ public class P_Corporate extends BaseClass {
             stepPass(driver,"Se ingresa correctamente a la pagina");
             generateWord.sendText("Se ingresa correctamente a la pagina");
             generateWord.addImageToWord(driver);
-            println("Se ingresa correctamente a la pagina");
+            println("[LOG] Logueo exitoso");
         }catch (Exception e){
             ExcelReader.writeCellValue(ExcelWebDelivery.EXCEL_WEB, ExcelWebDelivery.ORDEN, 1, 19, "FAIL");
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
@@ -112,7 +113,7 @@ public class P_Corporate extends BaseClass {
             generateWord.sendText("Seleccionamos crear pedido");
             generateWord.addImageToWord(driver);
             click(driver, O_Corporate.LNK_CREAR_PEDIDO);
-            println("Seleccionamos crear pedido");
+            println("[LOG] Seleccionamos crear pedido");
             wait(driver,O_Corporate.BTN_LUPA,60);
 
         } catch (Exception e) {
@@ -150,13 +151,12 @@ public class P_Corporate extends BaseClass {
             stepPass(driver,"Se obtiene la descripción de la empresa");
             generateWord.sendText("Se obtiene la descripción de la empresa");
             generateWord.addImageToWord(driver);
-            println("Se obtiene la descripción de la empresa");
+            println("[LOG] Buscamos RUC: "+usuario);
            click(driver, O_Corporate.LNK_RUC);
             sleep(5000);
             stepPass(driver,"Datos del RUC");
             generateWord.sendText("Datos del RUC");
             generateWord.addImageToWord(driver);
-            println("Datos del RUC");
 
         }catch (Exception e){
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
@@ -186,7 +186,7 @@ public class P_Corporate extends BaseClass {
             stepPass(driver,"Seleccionamos tipo de pedido");
             generateWord.sendText("Seleccionamos tipo de pedido");
             generateWord.addImageToWord(driver);
-            println("Seleccionamos tipo de pedido");
+            println("[LOG] Seleccionamos tipo de pedido: "+ tipo);
             click(driver, O_Corporate.LNK_TIPO_PEDIDO_CAMBIO);
             sleep(3000);
             int SAL_ANT = Integer.parseInt(casoDePrueba) - 1;
@@ -202,6 +202,7 @@ public class P_Corporate extends BaseClass {
             stepPass(driver,"Almacén");
             generateWord.sendText("Almacén");
             generateWord.addImageToWord(driver);
+            println("[LOG] Seleccionamos almacen: PE10API7");
             click(driver, O_Corporate.LNK_TIPO_ALMACEN);
             sleep(3000);
             click(driver, O_Corporate.BTN_LUPA8);
@@ -226,13 +227,15 @@ public class P_Corporate extends BaseClass {
            sleep(5000);
             stepPass(driver,"Tipo de pago");
             generateWord.sendText("Tipo de pago");
+            generateWord.addImageToWord(driver);
+            println("[LOG] Seleccionamos venta tipo de pago: "+tipo2);
             sleep(2000);
             click(driver, O_Corporate.LNK_PAGO_EFECTIVO);
            sleep(3000);
            stepPass(driver,"Datos del pedido completos");
             generateWord.sendText("Datos del pedido completos");
             generateWord.addImageToWord(driver);
-            println("Datos del pedido ingresados correctamente");
+
         }catch (Exception e){
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
             generateWord.sendText("Tiempo de espera ha excedido");
@@ -257,12 +260,13 @@ public class P_Corporate extends BaseClass {
            stepPass(driver,"Datos del solicitante");
             generateWord.sendText("Datos del solicitante");
             generateWord.addImageToWord(driver);
+            println("[LOG] Ingresamos datos del solicitante: "+usuario);
             click(driver, O_Corporate.LNK_TIPO_PEDIDO_CAMBIO);
            sleep(3000);
            stepPass(driver,"Información del solicitante completo");
             generateWord.sendText("Información del solicitante completo");
             generateWord.addImageToWord(driver);
-            println("Información del solicitante ingresada correctamente");
+
         }catch (Exception e){
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
             generateWord.sendText("Tiempo de espera ha excedido");
@@ -277,13 +281,14 @@ public class P_Corporate extends BaseClass {
             wait(driver, O_Corporate.LNK_TIPO_PEDIDO_CAMBIO,60);
             stepPass(driver,"Descripción de dirección");
             generateWord.sendText("Descripción de dirección");
+            println("[LOG] Seleccionamos dirección");
             generateWord.addImageToWord(driver);
             click(driver, O_Corporate.LNK_TIPO_PEDIDO_CAMBIO);
             sleep(3000);
             stepPass(driver,"Dirección de entrega completo");
             generateWord.sendText("Dirección de entrega completo");
             generateWord.addImageToWord(driver);
-            println("Se ingreso correctamente la dirección");
+
 
         }catch (Exception e){
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
@@ -306,13 +311,13 @@ public class P_Corporate extends BaseClass {
             sleep(3000);
             stepPass(driver,"Información del contacto");
             generateWord.sendText("Información del contacto");
+            println("[LOG] Ingresamos datos del receptor: "+usuario);
             generateWord.addImageToWord(driver);
             click(driver, O_Corporate.LNK_TIPO_PEDIDO_CAMBIO);
             sleep(3000);
             stepPass(driver,"Información del receptor completo");
             generateWord.sendText("Información del receptor completo");
             generateWord.addImageToWord(driver);
-            println("Se ingreso la información del receptor");
         }catch (Exception e){
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
             generateWord.sendText("Tiempo de espera ha excedido");
@@ -329,6 +334,7 @@ public class P_Corporate extends BaseClass {
             stepPass(driver,"Datos del agendamiento");
             generateWord.sendText("Datos del agendamiento");
             generateWord.addImageToWord(driver);
+            println("[LOG] DATOS DE AGENDAMIENTO ");
         }catch (Exception e){
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
             generateWord.sendText("Tiempo de espera ha excedido");
@@ -343,6 +349,7 @@ public class P_Corporate extends BaseClass {
             stepPass(driver,"Linea de detalle de solicitud");
             generateWord.sendText("Linea de detalle de solicitud");
             generateWord.addImageToWord(driver);
+            println("[LOG] Agregamos linea de solicitud");
 
         }catch (Exception e){
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
@@ -369,6 +376,7 @@ public class P_Corporate extends BaseClass {
                     stepPass(driver,"Descripción del código SAP del SimCard");
                     generateWord.sendText("Descripción del código SAP del SimCard");
                     generateWord.addImageToWord(driver);
+                    println("[LOG] Seleccionamos codigo SAP del SimCard: "+usuario3);
                     click(driver, O_Corporate.LNK_TIPO_PEDIDO_CAMBIO);
                     sleep(3000);
                     int pedido3 = Integer.parseInt(casoDePrueba) - 1;
@@ -378,7 +386,7 @@ public class P_Corporate extends BaseClass {
                     stepPass(driver,"Linea de detalle de solicitud completa");
                     generateWord.sendText("Linea de detalle de solicitud completa");
                     generateWord.addImageToWord(driver);
-                    println("Se relleno solicitud");
+                    println("[LOG] Linea de detalle de solicitud completa");
                 }
 
             }
@@ -394,6 +402,7 @@ public class P_Corporate extends BaseClass {
                 stepPass(driver,"Descripción del código SAP del equipo");
                 generateWord.sendText("Descripción del código SAP del equipo");
                 generateWord.addImageToWord(driver);
+                println("[LOG] Seleccionamos codigo SAP del equipo: "+usuario2);
                 click(driver, O_Corporate.LNK_TIPO_PEDIDO_CAMBIO);
                 sleep(3000);
                 click(driver, O_Corporate.BTN_LUPA7);
@@ -406,6 +415,7 @@ public class P_Corporate extends BaseClass {
                 stepPass(driver,"Descripción del código SAP del SimCard");
                 generateWord.sendText("Descripción del código SAP del SimCard");
                 generateWord.addImageToWord(driver);
+                println("[LOG] Seleccionamos codigo SAP del SimCard: "+usuario3);
                 click(driver, O_Corporate.LNK_TIPO_PEDIDO_CAMBIO);
                 sleep(3000);
                 int pedido3 = Integer.parseInt(casoDePrueba) - 1;
@@ -415,7 +425,7 @@ public class P_Corporate extends BaseClass {
                 stepPass(driver,"Linea de detalle de solicitud completa");
                 generateWord.sendText("Linea de detalle de solicitud completa");
                 generateWord.addImageToWord(driver);
-                println("Linea de detalle de solicitud completa");
+                println("[LOG] Linea de detalle de solicitud completa");
             }
             if (tipo.equals("ALTA SOLO SIM")){
                 click(driver, O_Corporate.BTN_LUPA7);
@@ -428,6 +438,7 @@ public class P_Corporate extends BaseClass {
                 stepPass(driver,"Descripción del código SAP del SimCard");
                 generateWord.sendText("Descripción del código SAP del SimCard");
                 generateWord.addImageToWord(driver);
+                println("[LOG] Seleccionamos codigo SAP del SimCard: "+usuario3);
                 click(driver, O_Corporate.LNK_TIPO_PEDIDO_CAMBIO);
                 sleep(3000);
                 int pedido3 = Integer.parseInt(casoDePrueba) - 1;
@@ -437,7 +448,7 @@ public class P_Corporate extends BaseClass {
                 stepPass(driver,"Linea de detalle de solicitud completa");
                 generateWord.sendText("Linea de detalle de solicitud completa");
                 generateWord.addImageToWord(driver);
-                println("Linea de detalle de solicitud completa");
+                println("[LOG] Linea de detalle de solicitud completa");
             }
         }catch (Exception e){
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
@@ -450,9 +461,11 @@ public class P_Corporate extends BaseClass {
             sleep(2000);
             click(driver, O_Corporate.BTN_SONSULTAR_DISPON);
             wait(driver, O_Corporate.BTN_ACEPTAR_MENS_SIST,60);
-            stepPass(driver,"Mensaje del sistema");
-            generateWord.sendText("Mensaje del sistema");
+            stepPass(driver,"Consultar disponibilidad: Mensaje del sistema");
+            generateWord.sendText("Consultar disponibilidad: Mensaje del sistema");
+            println("[LOG] Consultar disponibilidad: Mensaje del sistema");
             generateWord.addImageToWord(driver);
+
             click(driver, O_Corporate.BTN_ACEPTAR_MENS_SIST);
         }catch (Exception e){
             ExtentReportUtil.INSTANCE.stepFail(driver, "Fallo el caso de prueba : " + e.getMessage());
@@ -465,10 +478,10 @@ public class P_Corporate extends BaseClass {
             sleep(3000);
             click(driver, O_Corporate.BTN_REALIZAR_RESERVA);
             wait(driver, O_Corporate.BTN_ACEPTAR_MENS_SIST,60);
-            stepPass(driver,"Mensaje del sistema");
-            ExtentReportUtil.INSTANCE.stepPass(driver, "Mensaje del sistema");
-            generateWord.sendText("Mensaje del sistema");
+            stepPass(driver,"Realizar reserva: Mensaje del sistema");
+            generateWord.sendText("Realizar reserva: Mensaje del sistema");
             generateWord.addImageToWord(driver);
+            println("[LOG] Realizar reserva: Mensaje del sistema");
             click(driver, O_Corporate.BTN_ACEPTAR_MENS_SIST);
             sleep(3000);
         }catch (Exception e){
@@ -482,9 +495,10 @@ public class P_Corporate extends BaseClass {
             sleep(2000);
             click(driver, O_Corporate.BTN_GENERAR_DET_PEDIDO);
             wait(driver, O_Corporate.BTN_ACEPTAR_MENS_SIST,60);
-            stepPass(driver,"Mensaje del sistema");
-            generateWord.sendText("Mensaje del sistema");
+            stepPass(driver,"Generar detalle de pedido: Mensaje del sistema");
+            generateWord.sendText("Generar detalle de pedido: Mensaje del sistema");
             generateWord.addImageToWord(driver);
+            println("[LOG] Generar detalle de pedido: Mensaje del sistema");
             click(driver, O_Corporate.BTN_ACEPTAR_MENS_SIST);
             sleep(3000);
             stepPass(driver,"Lineas de detalle de solicitud completa");
@@ -503,6 +517,7 @@ public class P_Corporate extends BaseClass {
         stepPass(driver,"Lineas Amdocs");
         generateWord.sendText("Lineas Amdocs");
         generateWord.addImageToWord(driver);
+        println("[LOG] Lineas de Amdocs generadas correctamente");
     }
     public void clickBotónContinuarPaso() throws Throwable {
         click(driver, O_Corporate.BTN_CONTINUAR3);
@@ -510,6 +525,7 @@ public class P_Corporate extends BaseClass {
         stepPass(driver,"Datos del pedido");
         generateWord.sendText("Datos del pedido");
         generateWord.addImageToWord(driver);
+        println("[LOG] Se muestran los datos del pedido");
     }
     public void clickBotónEnviar(String casoDePrueba) throws Throwable {
 
@@ -521,8 +537,8 @@ public class P_Corporate extends BaseClass {
             click(driver, O_Corporate.BTN_ENVIAR);
         }
         wait(driver, O_Corporate.BTN_ACEPTAR_MENS_SIST,60);
-        stepPass(driver,"Mensaje del sistema");
-        generateWord.sendText("Datos del pedido");
+        stepPass(driver,"Enviar solicitud: Mensaje del sistema");
+        generateWord.sendText("Enviar solicitud: Mensaje del sistema");
         generateWord.addImageToWord(driver);
         click(driver, O_Corporate.BTN_ACEPTAR_MENS_SIST);
         sleep(2000);
@@ -540,10 +556,10 @@ public class P_Corporate extends BaseClass {
 
             PEDIDO = driver.findElement(O_Corporate.TXT_COD_PEDIDO).getAttribute("value");
             if (!PEDIDO.equals("")) {
-                stepPass(driver, "Código de pedido");
-                generateWord.sendText("Código de pedido");
+                stepPass(driver, "Se genero el número de pedido: " +PEDIDO);
+                generateWord.sendText("Se genero el número de pedido: " +PEDIDO);
                 generateWord.addImageToWord(driver);
-                System.out.println("Se genero el siguiente número de pedido: " + PEDIDO);
+                println("[LOG] Se genero el número de pedido: " + PEDIDO);
                 ExcelReader.writeCellValue(ExcelWebDelivery.EXCEL_WEB, ExcelWebDelivery.ORDEN, pedido, 14, PEDIDO);
             } else {
                 stepFail(driver, "No existe código de pedido");
