@@ -3,7 +3,11 @@ package com.tsoft.bot.frontend.pages.objects;
 import org.openqa.selenium.By;
 import org.sikuli.script.Pattern;
 
-public class CargaMateriales {
+public class O_CargaMateriales {
+    public static By TXT_USER = By.id("username");
+    public static By TXT_PASSWORD = By.id("password");
+    public static By BTN_LOGIN = By.id("loginbutton");
+    public static By LNK_CREAR_PEDIDO = By.id("FavoriteApp_WD_PED_CR");
     public static By LST_IR_A = By.id("titlebar-tb_gotoButton");
     public static By LNK_GESTION_PEDIDOS = By.id("menu0_GP_MODULE_a_tnode");
     public static By LNK_GESTION_INVENTARIOS = By.id("menu0_GP_MODULE_sub_CUST1003_HEADER_a_tnode");
@@ -24,7 +28,7 @@ public class CargaMateriales {
     public static By BTN_ACEPTAR_SISTEMA = By.id("m88dbf6ce-pb");
     public static By TXT_IMEI_EXIST = By.id("me7037f0c_tdrow_[C:3]-c[R:1]");
     public static By TXT_SIMCARD_EXIST = By.id("me7037f0c_tdrow_[C:3]-c[R:0]");
-    public static final Pattern BTN_ACEPTAR_ARCHIVO = new Pattern("F:\\flujos prueba dalma\\web-automation-framework\\src\\main\\resources\\img_Sikuli\\BTN_ACEPTAR.PNG");
+    public static final Pattern BTN_ACEPTAR_ARCHIVO = new Pattern("D:\\GIT\\TDP_WEBDELIVERY_CASCADA\\src\\main\\resources\\img_Sikuli\\BTN_ACEPTAR.PNG");
     public static By TXT_IMAGEN = By.id("mb_msg");
     public static By TABLE = By.id("me7037f0c_tbod-tbd");
 

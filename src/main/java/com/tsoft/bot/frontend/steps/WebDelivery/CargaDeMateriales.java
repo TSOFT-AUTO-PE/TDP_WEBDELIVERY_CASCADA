@@ -1,56 +1,71 @@
 package com.tsoft.bot.frontend.steps.WebDelivery;
 
-import com.tsoft.bot.frontend.pages.pages.P_Corporate;
+import com.tsoft.bot.frontend.helpers.Hook;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import org.openqa.selenium.WebDriver;
-
+import com.tsoft.bot.frontend.pages.pages.P_Residential;
 
 public class CargaDeMateriales {
     public WebDriver driver;
-    P_Corporate createCorPed = new P_Corporate(driver);
-    /*
+    P_Residential CargaMateriales = new P_Residential(driver);
 
-    @Given("^Se da click en el boton IR A en WEB DELIVERY \"([^\"]*)\"$")
-    public void seDaClickEnElBotonIRAEnWEBDELIVERY(String casoPrueba) throws Throwable {
-        createCorPed.seDaClickEnElBotonIRAEnWEBDELIVERY(casoPrueba);
-    }
-    @When("^seleccionar ajuste de inventario$")
-    public void seleccionarAjusteDeInventario() throws Exception {
-        createCorPed.seleccionarAjusteDeInventario();
+    public CargaDeMateriales() {
+        this.driver = Hook.getDriver();
     }
 
-    @And("^click en el boton nuevo registro$")
-    public void clickEnElBotonNuevoRegistro() throws Exception {
-        createCorPed.clickEnElBotonNuevoRegistro();
-
+    @Given("^INGRESAR A LA URL DE WEB DELIVERY \"([^\"]*)\"$")
+    public void ingresarALAURLDEWEBDELIVERY(String casoPrueba) throws Throwable {
+        CargaMateriales.ingresoALaUrlDeWEBDELIVERY(casoPrueba);
     }
-
-    @And("^seleccionamos el tipo ABASTECIMIENTO \"([^\"]*)\"$")
-    public void seleccionamosElTipoABASTECIMIENTO(String casoPrueba) throws Throwable {
-        createCorPed.seleccionamosElTipoABASTECIMIENTO(casoPrueba);
+    @When("^INGRESAR USUARIO A WEB DELIVERY\"([^\"]*)\"$")
+    public void ingresarUSUARIOAWEBDELIVERY(String casoPrueba) throws Throwable {
+        CargaMateriales.ingresoElUsuarioDeWEBDELIVERY(casoPrueba);
     }
-    @And("^ingresamos un comentario \"([^\"]*)\"$")
-    public void ingresamosUnComentario(String casoDePrueba) throws Throwable {
-
-        createCorPed.ingresamosUnComentario(casoDePrueba);
+    @And("^INGRESAR CONTRASENA WEB DELIVER\"([^\"]*)\"$")
+    public void ingresarCONTRASENAWEBDELIVER(String casoPrueba) throws Throwable {
+        CargaMateriales.laContraseñaDeWEBDELIVERY(casoPrueba);
     }
-    @And("^ingresamos guia de remision \"([^\"]*)\"$")
-    public void ingresamosGuiaDeRemision(String casoDePrueba) throws Throwable {
-        createCorPed.ingresamosGuiaDeRemision(casoDePrueba);
+    @Then("^CLICK EN EL BOTON LOGIN INGRESANDO CORRECTAMENTE A LA PAGINA$")
+    public void clickENELBOTONLOGININGRESANDOCORRECTAMENTEALAPAGINA()  throws Throwable{
+        CargaMateriales.seDaClicEnElBotonLoginDeWEBDELIVERYIngresandoCorrectamente();
     }
-    @And("^ingresamos el archivo$")
-    public void ingresamosElArchivo() throws Throwable {
-
-   createCorPed.ingresamosElArchivo();
-
+    @Given("^CLICK EN EL BOTON IR A EN WEB DELIVERY \"([^\"]*)\"$")
+    public void clickENELBOTONIRAENWEBDELIVERY(String casoPrueba) throws Throwable {
+        CargaMateriales.seDaClickEnElBotonIRAEnWEBDELIVERY(casoPrueba);
     }
-    @And("^click en ejecutar ajuste y aceptar mensaje$")
-    public void clickEnEjecutarAjusteYAceptarMensaje() throws Exception {
-        createCorPed.clickEnEjecutarAjusteYAceptarMensaje();
-
+    @When("^SELECCIONAR AJUSTE DE INVENTARIO$")
+    public void seleccionarAJUSTEDEINVENTARIO() throws Throwable{
+        CargaMateriales.seleccionarAjusteDeInventario();
     }
-    @And("^validar que los archivos hayan cargado$")
-    public void validarQueLosArchivosHayanCargado() throws Exception {
-        createCorPed.validarQueLosArchivosHayanCargado();
-    }*/
-
+    @And("^CLICK EN EL BOTON NUEVO REGISTRO$")
+    public void clickENELBOTONNUEVOREGISTRO() throws Throwable {
+        CargaMateriales.clickEnElBotonNuevoRegistro();
+    }
+    @And("^INGRESAR TIPO ABASTECIMIENTO \"([^\"]*)\"$")
+    public void ingresarTIPOABASTECIMIENTO(String casoPrueba) throws Throwable {
+        CargaMateriales.seleccionamosElTipoABASTECIMIENTO(casoPrueba);
+    }
+    @And("^INGRESAR COMENTARIO \"([^\"]*)\"$")
+    public void ingresarCOMENTARIO(String casoPrueba) throws Throwable {
+      CargaMateriales.ingresamosUnComentario(casoPrueba);
+    }
+    @And("^INGRESAR GUIA DE REMISION \"([^\"]*)\"$")
+    public void ingresarGUIADEREMISION(String casoPrueba) throws Throwable {
+       CargaMateriales.ingresamosGuiaDeRemision(casoPrueba);
+    }
+    @And("^CARGAR ARCHIVO CSV$")
+    public void cargarARCHIVOCSV() throws Throwable{
+        CargaMateriales.ingresamosElArchivo();
+    }
+    @And("^EJECUTAR AJUSTE Y ACEPTAR MENSAJE$")
+    public void ejecutarAJUSTEYACEPTARMENSAJE()throws Throwable {
+        CargaMateriales.clickEnEjecutarAjusteYAceptarMensaje();
+    }
+    @And("^VALIDAR LA CARGA DE ARCHIVO CSV$")
+    public void validarLACARGADEARCHIVOCSV() throws Throwable{
+        CargaMateriales.validarQueLosArchivosHayanCargado();
+    }
 }

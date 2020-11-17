@@ -2,6 +2,7 @@ package com.tsoft.bot.frontend.steps.WebDelivery;
 
 import com.tsoft.bot.frontend.helpers.Hook;
 import com.tsoft.bot.frontend.pages.pages.P_Corporate;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -122,6 +123,8 @@ public class CrearPedidoCorporativo {
     public void guardarElCódigoDePedido(String casoPrueba) throws Throwable {
         createCorPed.guardarElCódigoDePedido(casoPrueba);
     }
+
+
 }
 
 
