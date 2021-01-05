@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 				"com.tsoft.bot.frontend.helpers"
 		},
 		plugin = {"pretty", "html:target/cucumber"},
-		tags = {"@CARGA_MATERIALES"},
+		tags = {"@CORPORATIVO_1"},
 		strict =  false,
 		monochrome = false
 	)

@@ -1,7 +1,7 @@
 package com.tsoft.bot.frontend.pages.objects;
 
 public class ExcelResidencial {
-    public static final String EXCEL_WEB = "excel/CREACION_PEDIDO.xlsx";
+    public static final String EXCEL_WEB = "excel/Web_Delivery.xlsx";
     public static final String ORDEN = "Residencial";
     public static final String ID_ORDEN = "ID_ORDEN";
     public static final String COLUMNA_URL = "URL";

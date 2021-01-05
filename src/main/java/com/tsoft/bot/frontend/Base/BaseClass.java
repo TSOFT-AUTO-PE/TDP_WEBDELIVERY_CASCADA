@@ -7,6 +7,7 @@ import com.tsoft.bot.frontend.utility.Sleeper;
 import org.apache.commons.lang3.StringUtils;
 //import org.apache.poi.ss.formula.PlainCellCache;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -61,6 +62,17 @@ public class BaseClass {
             throw we;
         }
     }
+
+    protected void MoveToElement(WebDriver driver, By locator){
+        try {
+            Actions act1 = new Actions(driver);
+            act1.moveToElement(driver.findElement(locator)).build().perform();
+        }catch (Throwable we){
+            errorNoElementFound(driver, locator);
+            throw we;
+        }
+    }
+
 
     protected void sendKeys(WebDriver driver, By locator, String Text){
         try {

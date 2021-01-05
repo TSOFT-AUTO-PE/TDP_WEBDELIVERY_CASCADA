@@ -1,8 +1,7 @@
 package com.tsoft.bot.frontend.steps.WebDelivery;
 
 import com.tsoft.bot.frontend.helpers.Hook;
-import com.tsoft.bot.frontend.pages.pages.P_Corporate;
-import cucumber.api.PendingException;
+import com.tsoft.bot.frontend.pages.pages.P_PedidoCorporativo;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -12,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 public class CrearPedidoCorporativo {
 
     public WebDriver driver;
-    P_Corporate createCorPed = new P_Corporate(driver);
+    P_PedidoCorporativo createCorPed = new P_PedidoCorporativo(driver);
 
     public CrearPedidoCorporativo() {
         this.driver = Hook.getDriver();
